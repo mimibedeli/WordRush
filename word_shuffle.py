@@ -1,46 +1,45 @@
 import random
 
-def play_word_game(word_file, guess, n=8):
-    """
-    Loads words from a file, generates random letters, and checks if a guess is valid.
-
-    Args:
-        word_file (str): Path to the file containing valid words.
-        guess (str): The user's word guess.
-        n (int): Number of random letters to generate (default is 8).
-
-    Returns:
-        dict: Game results including random letters and guess validity.
-    """
-    # Load valid words from file
+def play_game():
     try:
-        with open(word_file, 'r') as file:
+        with open("words.txt", 'r') as file:
             valid_words = set(word.strip().lower() for word in file if word.strip())
     except FileNotFoundError:
-        print(f"File '{word_file}' not found.")
-        return {'valid_guess': False, 'random_letters': [], 'guess': guess}
+        print("File 'words.txt' not found.")
+        return
 
-    # Generate random letters
     letters = list("eeeeaaaaiiiooouuulnstrcmphbdg")
-    random_letters = random.sample(letters, n)
+    random_letters = random.sample(letters, 8)
+    print("Use these letters to form valid words (type 'quit' to exit):")
+    print("Your letters:", " ".join(random_letters))
 
-    # Count letters in guess
-    guess = guess.lower()
-    guess_count = {}
-    for char in guess:
-        guess_count[char] = guess_count.get(char, 0) + 1
-
-    # Count letters in available pool
     available_count = {}
     for char in random_letters:
         available_count[char] = available_count.get(char, 0) + 1
 
-    # Check if guess is valid
-    if guess not in valid_words:
-        return {'valid_guess': False, 'random_letters': random_letters, 'guess': guess}
+    while True:
+        guess = input("Enter a word: ").strip().lower()
+        if guess == 'quit':
+            break
 
-    for letter in guess_count:
-        if guess_count[letter] > available_count.get(letter, 0):
-            return {'valid_guess': False, 'random_letters': random_letters, 'guess': guess}
+        if guess not in valid_words:
+            print("Not a valid word.")
+            continue
 
-    return {'valid_guess': True, 'random_letters': random_letters, 'guess': guess}
+        guess_count = {}
+        for char in guess:
+            guess_count[char] = guess_count.get(char, 0) + 1
+
+        valid = True
+        for letter in guess_count:
+            if guess_count[letter] > available_count.get(letter, 0):
+                valid = False
+                break
+
+        if valid:
+            print(" Valid guess!")
+        else:
+            print("Invalid use of letters.")
+
+if __name__ == "__main__":
+    play_game()
