@@ -15,7 +15,8 @@ def play_word_game(word_file, guess, n=8):
     
     try:
         with open(word_file, 'r') as file:
-            valid_words = set(word.strip().lower() for word in file if word.strip())
+            valid_words = set(word.strip().lower() for word in file 
+                              if word.strip())
     except FileNotFoundError:
         print(f"File '{word_file}' not found.")
         return {'valid_guess': False, 'random_letters': [], 'guess': guess}
@@ -37,10 +38,12 @@ def play_word_game(word_file, guess, n=8):
 
     
     if guess not in valid_words:
-        return {'valid_guess': False, 'random_letters': random_letters, 'guess': guess}
+        return {'valid_guess': False, 'random_letters': random_letters,
+                 'guess': guess}
 
     for letter in guess_count:
         if guess_count[letter] > available_count.get(letter, 0):
-            return {'valid_guess': False, 'random_letters': random_letters, 'guess': guess}
+            return {'valid_guess': False, 'random_letters': random_letters,
+                     'guess': guess}
 
     return {'valid_guess': True, 'random_letters': random_letters, 'guess': guess}
