@@ -22,7 +22,7 @@ if __name__ == "__main__":
     name = input("Enter your name: ")
     letters = input("Enter 8 letters: ").strip().lower()
 
-    if len(letters) != 8 or not letters.isalpha():
+    if len(letters) != 8:
         print("Please enter exactly 8 alphabetic characters.")
     else:
         matches = finding_words(letters, word_set)
