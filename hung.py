@@ -15,7 +15,7 @@ def get_shuffled_word_from_file(filename):
 
     except FileNotFoundError:
         print(f"File '{filename}' not found.")
-        return None, None
+        return None
 
 if __name__ == "__main__":
     while True:
