@@ -1,37 +1,43 @@
-import random
+from collections import Counter
 
-def get_shuffled_word_from_file(filename):
-    """Reads 8-letter words from a file, picks one randomly, and returns it with its shuffled version."""
-    try:
-        with open(filename, 'r') as file:
-            words = [word.strip().lower() for word in file if len(word.strip()) == 8]
+def check_and_store_guess(raw_guess, used_words, valid_words, available_letters, min_length=3):
+    """
+    The program will check if a guess is valid based on the length, 
+    repeated, in the word list, and 
+    whether it's long enough, not repeated, in the word list, 
+    and only uses specific letters. If valid, stores the guess.
+    """
+    
+    guess = raw_guess.strip().lower()
 
-        target_word = random.choice(words)
-        letters = list(target_word)
-        random.shuffle(letters)
-        shuffled_word = ''.join(letters)
+    if len(guess) < min_length:
+        return {
+            "valid": False,
+            "message": f"The word must be at least {min_length} letters."
+        }
 
-        return target_word, shuffled_word
+    if guess in used_words:
+        return {
+            "valid": False,
+            "message": "The word has already been used."
+        }
 
-    except FileNotFoundError:
-        print(f"File '{filename}' not found.")
-        return None
+    if guess not in valid_words:
+        return {
+            "valid": False,
+            "message": "The word isn't in the list."
+        }
 
-if __name__ == "__main__":
-    while True:
-        target_word, shuffled = get_shuffled_word_from_file('words.txt')
+    if Counter(guess) - Counter(available_letters):
+        return {
+            "valid": False,
+            "message": "The word uses invalid letters."
+        }
 
-        print("Use the letters below to unscramble the eight-letter word:")
-        print(f"Shuffled letters: {shuffled.lower()}")
+    used_words.add(guess)
 
-        guess = input("Your guess: ").strip().lower()
-
-        if guess == target_word:
-            print("Correct! You guessed the word!")
-        else:
-            print(f"Incorrect. The correct word was: {target_word}")
-
-        play_again = input("If you would like to play again, answer 'yes': ").strip().lower()
-        if play_again not in ('yes'):
-            print("Thanks for playing!")
-            break
+    return {
+        "valid": True,
+        "message": "Great guess!",
+        "used_count": len(used_words)
+    }
