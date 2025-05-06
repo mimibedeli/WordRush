@@ -2,7 +2,8 @@ import random
 
 
 def game_introduction():
-    print("Welcome to WordRush!")
+    print("\nWelcome to WordRush!")
+    print("Form as many real words as you can using the given 8 letters.")
 
 def play_game():
     try:
@@ -115,6 +116,7 @@ def double_points_powerup():
 
 
 if __name__ == "__main__":
+    game_introduction()
     play_game()
 
 
