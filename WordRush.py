@@ -18,10 +18,37 @@ def play_game():
     print("Your letters: ", " ".join(random_letters))
     print()
     
-    use_powerup = input("Do you want to use the Wildcard Power-Up? (yes/no): "
+    power_ups = ["wildcard", "double_points", "extra_time"]
+    powerup_names = {
+        "wildcard": "Wildcard",
+        "extra_time": "Extra Time",
+        "double_points": "Double Points"
+    }
+    
+    if random.random() < 0.5:
+        selected_powerup = random.choice(power_ups)
+        print(f"You've been given the: {powerup_names[selected_powerup]}!\n")
+        
+        if selected_powerup == "wildcard":
+            use_powerup = input("Do you want to use the Wildcard Power-Up? (yes/no): "
                         ).strip().lower()
-    if use_powerup == "yes":
-        random_letters = wildcard_powerup(random_letters)
+            if use_powerup == "yes":
+                random_letters = wildcard_powerup(random_letters)
+        
+        elif selected_powerup == "extra_time":
+            use_powerup = input("Do you want to use the Extra Time Power-Up? (yes/no): "
+                        ).strip().lower()
+            if use_powerup == "yes":
+                extra_time_powerup()
+            
+        elif selected_powerup == "double_points":
+            use_powerup = input("Do you want to use the Double Points Power-Up? (yes/no): "
+                        ).strip().lower()
+            if use_powerup == "yes":
+                double_points_powerup()
+                       
+    else:
+        print("No power-up this round :( \n")
 
     available_count = {}
     for char in random_letters:
@@ -49,7 +76,7 @@ def play_game():
         if valid:
             print(" Valid guess!")
         else:
-            print("Invalid use of letters.")
+          print("Invalid use of letters.")
             
             
 def wildcard_powerup(letters):
@@ -72,6 +99,14 @@ def wildcard_powerup(letters):
         print(f"New letter set: {' '.join(letters)}")
 
     return letters
+
+
+def extra_time_powerup():
+    print()
+    
+    
+def double_points_powerup():
+    print()
                 
             
             
