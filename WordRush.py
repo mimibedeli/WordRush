@@ -25,7 +25,7 @@ def play_game():
         "double_points": "Double Points"
     }
     
-    if random.random() < 0.5:
+    if random.choice([True, False]):
         selected_powerup = random.choice(power_ups)
         print(f"You've been given the: {powerup_names[selected_powerup]}!\n")
         
@@ -76,7 +76,7 @@ def play_game():
         if valid:
             print(" Valid guess!")
         else:
-          print("Invalid use of letters.")
+            print("Invalid use of letters.")
             
             
 def wildcard_powerup(letters):
@@ -102,12 +102,13 @@ def wildcard_powerup(letters):
 
 
 def extra_time_powerup():
-    print()
+    print("You've received the Extra Time Power-Up!")
+    print("10 extra seconds will be added to your round. \n")
     
     
 def double_points_powerup():
-    print()
-                
+    print("You've received the Double Points Power-Up! ")
+    print("Every valid word you make this round will earn double points! \n")                
             
             
             
