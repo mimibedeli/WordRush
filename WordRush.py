@@ -5,15 +5,13 @@ def game_introduction():
     print("\nWelcome to WordRush!")
     print("Form as many real words as you can using the given 8 letters.")
 
-def play_game():
-    try:
-        with open("words.txt", 'r') as file:
-            valid_words = set(word.strip().lower() for word in file if word.strip())
-    except FileNotFoundError:
-        print("File 'words.txt' not found.")
-        return
 
-    letters = list("abcdefghijklmnopqrstuvwxyz")
+def play_game():
+    with open("words.txt", 'r') as file:
+        valid_words = set(word.strip().lower() for word in file if word.strip())
+        
+    letters = list("eeeeaaaaiiiooouuulnstrcmphbdgkvywxzjqf")
+    
     random_letters = random.sample(letters, 8)
     print("\nUse these letters to form valid words (type 'quit' to exit):")
     print("Your letters: ", " ".join(random_letters))
@@ -28,7 +26,7 @@ def play_game():
     
     if random.choice([True, False]):
         selected_powerup = random.choice(power_ups)
-        print(f"You've been given the: {powerup_names[selected_powerup]}!\n")
+        print(f"You've been given: {powerup_names[selected_powerup]}!\n")
         
         if selected_powerup == "wildcard":
             use_powerup = input("Do you want to use the Wildcard Power-Up? (yes/no): "
