@@ -54,7 +54,7 @@ def play_game():
         available_count[char] = available_count.get(char, 0) + 1
 
     while True:
-        guess = input("Enter a word: ").strip().lower()
+        guess = input("\nEnter a word: ").strip().lower()
         if guess == 'quit':
             break
 
@@ -81,7 +81,7 @@ def play_game():
 def wildcard_powerup(letters):
     print("[WILDCARD ACTIVATED!] You can add or remove one letter!")
     player_choice = (
-        input("Type 'add' to add a letter or 'remove' to remove one: ")
+        input("\nType 'add' to add a letter or 'remove' to remove one: ")
         .strip().lower()
     )   
     
@@ -101,13 +101,11 @@ def wildcard_powerup(letters):
 
 
 def extra_time_powerup():
-    print("You've received the Extra Time Power-Up!")
-    print("10 extra seconds will be added to your round. \n")
+    print("[EXTRA TIME ACTIVATED!] 10 extra seconds will be added to your round!")
     
     
 def double_points_powerup():
-    print("You've received the Double Points Power-Up! ")
-    print("Every valid word you make this round will earn double points! \n")                
+    print("[EXTRA TIME ACTIVATED!] Every valid word you make this round will earn double points!")            
             
             
             
