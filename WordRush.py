@@ -130,6 +130,10 @@ class ScoreCalculator:
     def word_count(self):
         return len(self.valid_words)
     
+    def bonus_time(self):
+        total_characters = sum(len(word) for word in self.valid_words)
+        return total_characters // 5 
+    
 
 if __name__ == "__main__":
     game_introduction()
