@@ -108,7 +108,11 @@ def double_points_powerup():
     print("[EXTRA TIME ACTIVATED!] Every valid word you make this round will earn double points!")            
             
             
-            
+class ScoreCalculator:
+    """
+    Calculating the score, the bonus time, and the number of words created by
+    the player.
+    """         
 
 
 if __name__ == "__main__":
