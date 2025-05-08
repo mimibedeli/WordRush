@@ -1,5 +1,5 @@
 import random
-
+import time
 
 def game_introduction():
     print("\nWelcome to WordRush!")
