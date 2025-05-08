@@ -115,8 +115,16 @@ class ScoreCalculator:
     """  
     def __init__(self, valid_words, total_letters):
         self.valid_words = valid_words
-        self.total_letters = total_letters       
-
+        self.total_letters = total_letters
+        
+    def calculate_score(self):
+        score = 0
+        
+        for word in self.valid_words:
+            if len(word) >= 3:
+                score += len(word)
+                if len(word) == self.total_letters:
+                    score += 10 # adding the bonus points if player used all letters
 
 if __name__ == "__main__":
     game_introduction()
