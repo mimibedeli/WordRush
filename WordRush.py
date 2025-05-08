@@ -134,7 +134,13 @@ class ScoreCalculator:
         total_characters = sum(len(word) for word in self.valid_words)
         return total_characters // 5 
     
-
+    def get_results(self):
+        return (
+            self.calculate_score(),
+            self.bonus_time(),
+            self.word_count()
+        )
+    
 if __name__ == "__main__":
     game_introduction()
     play_game()
