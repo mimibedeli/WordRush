@@ -1,4 +1,5 @@
 import random
+import time
 
 def game_introduction():
     print("\nWelcome to WordRush!")
@@ -23,6 +24,8 @@ def play_game():
         "double_points": "Double Points"
     }
     
+    double_points = False
+    round_time = 60
     if random.choice([True, False]):
         selected_powerup = random.choice(power_ups)
         print(f"You've been given: {powerup_names[selected_powerup]}!\n")
@@ -37,13 +40,13 @@ def play_game():
             use_powerup = input("Do you want to use the Extra Time Power-Up? (yes/no): "
                         ).strip().lower()
             if use_powerup == "yes":
-                extra_time_powerup()
+                round_time = extra_time_powerup()
             
         elif selected_powerup == "double_points":
             use_powerup = input("Do you want to use the Double Points Power-Up? (yes/no): "
                         ).strip().lower()
             if use_powerup == "yes":
-                double_points_powerup()
+              double_points = double_points_powerup()
                        
     else:
         print("No power-up this round :( \n")
@@ -51,8 +54,15 @@ def play_game():
     available_count = {}
     for char in random_letters:
         available_count[char] = available_count.get(char, 0) + 1
+        
+    start_time = time.time()
+    guessed_words = []     
 
     while True:
+        if time.time() - start_time >= round_time:
+            print("\nTime's up! The round has ended.")
+            break
+        
         guess = input("\nEnter a word: ").strip().lower()
         if guess == 'quit':
             break
@@ -73,8 +83,17 @@ def play_game():
 
         if valid:
             print(" Valid guess!")
+            guessed_words.append(guess)
         else:
-            print("Invalid use of letters.")
+            print("Invalid use of letters.")  
+                     
+    calculator = ScoreCalculator(guessed_words, len(random_letters))
+    final_score = calculator.calculate_score()
+    if double_points:
+        final_score *= 2
+    print(f"\nYou found {calculator.word_count()} words!")        
+    print(f"Your final score: {final_score}")      
+        
             
             
 def wildcard_powerup(letters):
@@ -101,11 +120,12 @@ def wildcard_powerup(letters):
 
 def extra_time_powerup():
     print("[EXTRA TIME ACTIVATED!] 10 extra seconds will be added to your round!")
+    return 70
     
     
 def double_points_powerup():
-    print("[EXTRA TIME ACTIVATED!] Every valid word you make this round will earn double points!")            
-            
+    print("[DOUBLE POINTS ACTIVATED!] Every valid word you make this round will earn double points!")            
+    return True
             
 class ScoreCalculator:
     """
