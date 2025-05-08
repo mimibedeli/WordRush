@@ -112,7 +112,10 @@ class ScoreCalculator:
     """
     Calculating the score, the bonus time, and the number of words created by
     the player.
-    """         
+    """  
+    def __init__(self, valid_words, total_letters):
+        self.valid_words = valid_words
+        self.total_letters = total_letters       
 
 
 if __name__ == "__main__":
