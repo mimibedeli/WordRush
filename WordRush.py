@@ -111,7 +111,7 @@ def play_game():
 
         print(result["message"])
 
-    calculator = ScoreCalculator(list(used_words), len(random_letters))
+    calculator = ScoreCalculator(list(guessed_words), len(random_letters))
     final_score = calculator.calculate_score()
     if double_points:
         final_score *= 2
