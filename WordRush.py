@@ -6,6 +6,8 @@ from collections import Counter
 def game_introduction():
     print("\nWelcome to WordRush!")
     print("Form as many real words as you can using the given 8 letters.")
+    player_name = input("\nEnter your name: ").strip()
+
     
     print("\nChoose your game mode:")
     print("1 - Solo")
@@ -20,17 +22,18 @@ def game_introduction():
     if mode == "1":
         for round_num in range(1, total_rounds + 1):
             print(f"\n--- Round {round_num} ---")
+            print(f"{player_name.upper()}'S TURN")
             _, player_score = play_game()
             player_total_score += player_score
         
         print("\n--- Game Over ---")
-        print(f"Your Total Score: {player_total_score}")    
-            
+        print(f"{player_name}'s Total Score: {player_total_score}")    
+        print()    
     elif mode == "2":
         for round_num in range(1, total_rounds + 1):
             print(f"\n--- Round {round_num} ---")
         
-            print("\n[YOUR TURN]")
+            print(f"\n{player_name.upper()}'S TURN")
             random_letters, player_score = play_game()
             player_total_score += player_score
             
@@ -49,21 +52,21 @@ def game_introduction():
             computer_total_score += computer_score
             
         print("\n--- Game Over ---")
-        print(f"Your Total Score: {player_total_score}")
+        print(f"{player_name}'s Total Score: {player_total_score}")
         print(f"Computer's Total Score: {computer_total_score}")
         if player_total_score > computer_total_score:
-            print("You win!")
+            print(f"{player_name} wins!")
         elif player_total_score < computer_total_score:
-            print("Computer wins!")
+            print("Computer wins!\n")
         else:
             print("It's a tie!")
+        print()
 
     elif mode == "3":
-        print("\nMultiplayer mode is being implemented by Hung.")
+        multiplayer_mode()
 
     else:
         print("Invalid input. Starting solo mode by default.")
-        play_game()
     
 
 def check_and_store_guess(raw_guess, guessed_words, valid_words, available_letters, min_length=3):
@@ -275,7 +278,76 @@ def computer_player(valid_words, available_letters):
     if possible_words:
         return max(possible_words, key=len)
     return None   
-               
+
+
+def multiplayer_mode():
+    print("\nMultiplayer Mode: Enter number of players (2–4)")
+    while True:
+        try:
+            num_players = int(input("How many players? (2-4): ").strip())
+            if 2 <= num_players <= 4:
+                break
+            else:
+                print("Please enter a number between 2 and 4.")
+        except ValueError:
+            print("Please enter a valid number.")
+    
+    player_names = []
+    for i in range(1, num_players + 1):
+        name = input(f"Enter name for Player {i}: ").strip()
+        player_names.append(name)
+    
+    total_rounds = 3
+    scores = {name: 0 for name in player_names}
+
+    for round_num in range(1, total_rounds + 1):
+        print(f"\n--- Round {round_num} ---")
+
+        with open("words.txt", 'r') as file:
+            valid_words = set(word.strip().lower() for word in file if word.strip())
+        letters = list("eeeeaaaaiiiooouuulnstrcmphbdgkvywxzjqf")
+        random_letters = random.sample(letters, 8)
+
+        for player in player_names:
+            print(f"\n[{player.upper()}'S TURN]") 
+            print(f"Your letters: {' '.join(random_letters)}")
+
+            guessed_words = []
+            start_time = time.time()
+            round_time = 60
+
+            while True:
+                elapsed_time = time.time() - start_time
+                remaining_time = int(round_time - elapsed_time)
+
+                if remaining_time <= 0:
+                    print(f"\nTime's up! {player}'s round has ended.")
+                    break
+
+                print(f"\n Time left: {remaining_time} seconds.")
+                guess = input("\nEnter a word: ").strip().lower()
+                if guess == 'quit':
+                    break
+
+                result = check_and_store_guess(guess, guessed_words, valid_words, random_letters)
+                print(result["message"])
+
+            round_score = ScoreCalculator(guessed_words, len(random_letters)).calculate_score()
+            print(f"\n{player} found {len(guessed_words)} words!")
+            print(f"{player} score this round: {round_score}")
+            scores[player] += round_score
+
+    print("\n--- Game Over ---")
+    for player in player_names:
+        print(f"{player}'s Total Score: {scores[player]}")
+    max_score = max(scores.values())
+    winners = [name for name, score in scores.items() if score == max_score]
+
+    if len(winners) == 1:
+        print(f"\n{winners[0]} wins!")
+    else:
+        print("\nIt's a tie between: " + ", ".join(winners))
+    print()       
 
 if __name__ == "__main__":
     game_introduction()
