@@ -211,7 +211,7 @@ def play_game():
     timer_thread = threading.Thread(target=countdown)
     timer_thread.start()
     
-    start_time = time.time
+    start_time = time.time()
     
     while not time_up:
         elapsed_time = time.time() - start_time
