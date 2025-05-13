@@ -6,7 +6,6 @@ from collections import Counter
 def game_introduction():
     print("\nWelcome to WordRush!")
     print("Form as many real words as you can using the given 8 letters.")
-    player_name = input("\nEnter your name: ").strip()
 
     
     print("\nChoose your game mode:")
@@ -18,16 +17,19 @@ def game_introduction():
     total_rounds = 3
     player_total_score = 0
     computer_total_score = 0
+    
+    if mode in ["1", "2"]:
+        player_name = input("\nEnter your name: ").strip()
         
     if mode == "1":
         for round_num in range(1, total_rounds + 1):
             print(f"\n--- Round {round_num} ---")
-            print(f"{player_name.upper()}'S TURN")
+            print(f"\n{player_name.upper()}'S TURN")
             _, player_score = play_game()
             player_total_score += player_score
         
         print("\n--- Game Over ---")
-        print(f"{player_name}'s Total Score: {player_total_score}")    
+        print(f"\n{player_name}'s Total Score: {player_total_score}")    
         print()    
     elif mode == "2":
         for round_num in range(1, total_rounds + 1):
@@ -175,7 +177,6 @@ def play_game():
 
     guessed_words = []
     start_time = time.time()
-    round_time = 60
 
     while True:
         elapsed_time = time.time() - start_time
@@ -291,6 +292,7 @@ def multiplayer_mode():
                 print("Please enter a number between 2 and 4.")
         except ValueError:
             print("Please enter a valid number.")
+    print()
     
     player_names = []
     for i in range(1, num_players + 1):
@@ -309,34 +311,11 @@ def multiplayer_mode():
         random_letters = random.sample(letters, 8)
 
         for player in player_names:
-            print(f"\n[{player.upper()}'S TURN]") 
-            print(f"Your letters: {' '.join(random_letters)}")
-
-            guessed_words = []
-            start_time = time.time()
-            round_time = 60
-
-            while True:
-                elapsed_time = time.time() - start_time
-                remaining_time = int(round_time - elapsed_time)
-
-                if remaining_time <= 0:
-                    print(f"\nTime's up! {player}'s round has ended.")
-                    break
-
-                print(f"\n Time left: {remaining_time} seconds.")
-                guess = input("\nEnter a word: ").strip().lower()
-                if guess == 'quit':
-                    break
-
-                result = check_and_store_guess(guess, guessed_words, valid_words, random_letters)
-                print(result["message"])
-
-            round_score = ScoreCalculator(guessed_words, len(random_letters)).calculate_score()
-            print(f"\n{player} found {len(guessed_words)} words!")
-            print(f"{player} score this round: {round_score}")
+            print(f"\n{player.upper()}'S TURN") 
+            print(f"\nYour letters: {' '.join(random_letters)}")
+            round_score = multiplayer_turn(player, valid_words, random_letters)
             scores[player] += round_score
-
+            
     print("\n--- Game Over ---")
     for player in player_names:
         print(f"{player}'s Total Score: {scores[player]}")
@@ -347,7 +326,67 @@ def multiplayer_mode():
         print(f"\n{winners[0]} wins!")
     else:
         print("\nIt's a tie between: " + ", ".join(winners))
-    print()       
+    print()
+  
+    
+def multiplayer_turn(player_name, valid_words, random_letters):
+    power_ups = ["wildcard", "double_points", "extra_time"]
+    powerup_names = {
+        "wildcard": "Wildcard",
+        "extra_time": "Extra Time",
+        "double_points": "Double Points"
+    }
+
+    double_points = False
+    round_time = 60
+    if random.choice([True, False]):
+        selected_powerup = random.choice(power_ups)
+        print(f"You've been given: {powerup_names[selected_powerup]}!\n")
+
+        if selected_powerup == "wildcard":
+            use_powerup = input("Do you want to use the Wildcard Power-Up? (yes/no): ").strip().lower()
+            if use_powerup == "yes":
+                random_letters = wildcard_powerup(random_letters)
+
+        elif selected_powerup == "extra_time":
+            use_powerup = input("Do you want to use the Extra Time Power-Up? (yes/no): ").strip().lower()
+            if use_powerup == "yes":
+                round_time = extra_time_powerup()
+
+        elif selected_powerup == "double_points":
+            use_powerup = input("Do you want to use the Double Points Power-Up? (yes/no): ").strip().lower()
+            if use_powerup == "yes":
+                double_points = double_points_powerup()
+    else:
+        print("No power-up this round :( \n")
+
+    guessed_words = []
+    start_time = time.time()
+
+    while True:
+        elapsed_time = time.time() - start_time
+        remaining_time = int(round_time - elapsed_time)
+
+        if remaining_time <= 0:
+            print(f"\nTime's up! {player_name}'s round has ended.")
+            break
+
+        print(f"\n Time left: {remaining_time} seconds.")
+        guess = input("\nEnter a word: ").strip().lower()
+        if guess == 'quit':
+            break
+
+        result = check_and_store_guess(guess, guessed_words, valid_words, random_letters)
+        print(result["message"])
+
+    score = ScoreCalculator(guessed_words, len(random_letters)).calculate_score()
+    if double_points:
+        score *= 2
+
+    print(f"\n{player_name} found {len(guessed_words)} words!")
+    print(f"{player_name} score this round: {score}")
+    return score
+         
 
 if __name__ == "__main__":
     game_introduction()
