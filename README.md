@@ -1,20 +1,19 @@
 # WordRush
-WordRush is a fast-paced, interactive terminal based word game where players form real words using a random selection of 8 letters. The game features built-in power-ups, score tracking, and time-based challenges to make gameplay engaging and competitive.
+WordRush is a fast-paced, interactive terminal-based word game where players form real words using a random selection of 8 letters. The game includes power-ups, score tracking, multiplayer support, and time-based challenges to make gameplay fun and competitive.
 
 # How to Play
-1. When you start the game, you’ll receive 8 random letters.
+1. When the game starts, choose from three modes: Solo, Versus Computer, or Multiplayer (2–4 players).
 
-2. You have 60 seconds to enter as many valid English words as possible using the provided letters.
+2. You’ll receive 8 random letters to form as many valid English words as possible in 60 seconds.
 
-3. Optional power-ups may appear randomly at the start of the round:
+3. Optional power-ups may appear at the start of a round:
+   - **Wildcard** – Add or remove a letter from your set.
+   - **Extra Time** – Extends the round to 70 seconds.
+   - **Double Points** – Doubles your total score at the end of the round.
 
-- Wildcard – Add or remove a letter from your set.
+4. Type `quit` at any time to end the round early.
 
-- Extra Time – Increases the round duration to 70 seconds.
-
-- Double Points – Doubles your final score.
-
-- Type quit anytime to end the game early.
+5. Points are awarded based on word length, with bonuses for using all 8 letters.
 
 # Requirements
 - Python 3.x
@@ -27,24 +26,33 @@ WordRush.py: Main game script.
 words.txt: (Required) Text file with valid words, used to check user guesses.
 
 # Features
-- Real-time input with a countdown timer
+- Three gameplay modes: Solo, Versus Computer, and Multiplayer (2–4 players)
 
-- Input validation (duplicates, non-dictionary words, illegal letter use)
+- Power-ups that can modify time, scoring, or letter set
 
-- Randomly assigned power-ups for strategic gameplay
+- Real-time input with a visible countdown timer
 
-- Automatic scoring and summary display
+- Multiplayer support with automatic turn-switching and scorekeeping
 
-- Score bonuses for longer words
+- A simple computer player that selects the longest valid word it can find
+
+- Word validation that checks:
+  - Minimum length
+  - No repeats
+  - Word is in dictionary
+  - Word uses only the given letters
+- Bonus scoring for longer words and full 8-letter usage
+
+
 # How to Run
-python WordRush.py
+`python WordRush.py`
 or
-python3 WordRush.py on Mac
+`python3 WordRush.py` on Mac
 
 
 
 
-# Individial group contributtion 
+# Individial Group Contributtion 
 
 | Method/Function           | Primary Author     | Techniques Demonstrated     |
 |---------------------------|--------------------|-----------------------------|
@@ -54,7 +62,12 @@ python3 WordRush.py on Mac
 | content cell              | content cell        | content cell               |
 | content cell              | content cell        | content cell               |
 | content cell              | content cell        | content cell               |
+| content cell              | content cell        | content cell               |
+| content cell              | content cell        | content cell               |
+
 
 
 
 # Annotated Bibliography
+ 
+ [insert sources used here]
