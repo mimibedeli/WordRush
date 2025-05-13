@@ -112,6 +112,7 @@ def play_game():
 
     guessed_words = []
     start_time = time.time()
+    round_time = 60
 
     while True:
         elapsed_time = time.time() - start_time
@@ -128,10 +129,7 @@ def play_game():
             break
         
         if guess == "":
-            if remaining_time <= 0:
-                print("\nTime's up! The round has ended.")
-                break
-            continue
+            break
 
         result = check_and_store_guess(  
             raw_guess=guess,
