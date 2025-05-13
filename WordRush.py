@@ -156,20 +156,35 @@ def play_game():
         print(f"You've been given: {powerup_names[selected_powerup]}!\n")
 
         if selected_powerup == "wildcard":
-            use_powerup = input("Do you want to use the Wildcard Power-Up? (yes/no): "
+            while True:
+                use_powerup = input("Do you want to use the Wildcard Power-Up? (yes/no): "
                                ).strip().lower()
+                if use_powerup in ["yes", "no"]:
+                    break
+                else:
+                    print("Invalid Input. Please type 'yes' or 'no'. ")
             if use_powerup == "yes":
                 random_letters = wildcard_powerup(random_letters)
 
         elif selected_powerup == "extra_time":
-            use_powerup = input("Do you want to use the Extra Time Power-Up? (yes/no): "
-                               ).strip().lower()
+            while True: 
+                use_powerup = input("Do you want to use the Extra Time Power-Up? (yes/no): "
+                                ).strip().lower()
+                if use_powerup in ["yes", "no"]:
+                    break
+                else:
+                    print("Invalid input. Please type 'yes' or 'no'.")
             if use_powerup == "yes":
                 round_time = extra_time_powerup()
 
         elif selected_powerup == "double_points":
-            use_powerup = input("Do you want to use the Double Points Power-Up? (yes/no): "
+            while True:
+                use_powerup = input("Do you want to use the Double Points Power-Up? (yes/no): "
                                ).strip().lower()
+                if use_powerup in ["yes", "no"]:
+                    break
+                else:
+                    print("Invalid input. Please type 'yes' or 'no'. ")
             if use_powerup == "yes":
                 double_points = double_points_powerup()
     else:
@@ -207,13 +222,19 @@ def play_game():
         final_score *= 2
     print(f"\nYou found {calculator.word_count()} words!")
     print(f"Your final score: {final_score}")
+    print(f"Words you found: {', '.join(guessed_words) if guessed_words else 'None'}")
     
     return random_letters, final_score
 
 def wildcard_powerup(letters):
     print("[WILDCARD ACTIVATED!] You can add or remove one letter!")
-    player_choice = input(
-        "\nType 'add' to add a letter or 'remove' to remove one: ").strip().lower()
+    
+    while True:
+        player_choice = input("\nType 'add' to add a letter or 'remove' to remove one: ").strip().lower()
+        if player_choice in ["add", "remove"]:
+            break
+        else:
+            print("Invalid input. Please type 'add' or 'remove'.")
 
     if player_choice == "add":
         new_letter = input("Enter the letter you want to add: ").strip().lower()
@@ -385,6 +406,7 @@ def multiplayer_turn(player_name, valid_words, random_letters):
 
     print(f"\n{player_name} found {len(guessed_words)} words!")
     print(f"{player_name} score this round: {score}")
+    print(f"Words you found: {', '.join(guessed_words) if guessed_words else 'None'}")
     return score
          
 
