@@ -48,6 +48,26 @@ def check_and_store_guess(raw_guess, guessed_words, valid_words, available_lette
         }
 
 def play_game():
+    """
+    Starts an interactive word game session using randomly selected letters.
+
+    Args:
+        None
+
+    Side Effects:
+        - Reads from 'words.txt' to load valid words.
+        - Prints output to the console.
+        - Prompts user for input via the console.
+        - Tracks elapsed time to enforce a timed round.
+        - Calls other functions to apply optional power-ups.
+        - Displays the final score and word count at the end of the game.
+          Arguments:
+        None
+
+    Returns:
+        None
+
+    """
     with open("words.txt", 'r') as file:
         valid_words = set(word.strip().lower() for word in file if word.strip())
 
