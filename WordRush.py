@@ -116,6 +116,14 @@ def check_and_store_guess(raw_guess, guessed_words, valid_words, available_lette
             "message": f"An unexpected error occurred: {str(e)}"
         }
 
+def countdown():
+    global my_timer, time_up
+    while my_timer > 0:
+        time.sleep(1)
+        my_timer -= 1
+    time_up = True
+    print("\nYour time is up. The round has ended!")
+    
 def play_game():
     """
     Starts an interactive word game session using randomly selected letters.
