@@ -127,9 +127,6 @@ def play_game():
         guess = input("\nEnter a word: ").strip().lower()
         if guess == 'quit':
             break
-        
-        if guess == "":
-            break
 
         result = check_and_store_guess(  
             raw_guess=guess,
