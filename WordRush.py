@@ -6,6 +6,65 @@ from collections import Counter
 def game_introduction():
     print("\nWelcome to WordRush!")
     print("Form as many real words as you can using the given 8 letters.")
+    
+    print("\nChoose your game mode:")
+    print("1 - Solo")
+    print("2 - Versus Computer")
+    print("3 - Multiplayer")
+    
+    mode = input("\nEnter 1, 2, or 3: ").strip()
+    total_rounds = 3
+    player_total_score = 0
+    computer_total_score = 0
+        
+    if mode == "1":
+        for round_num in range(1, total_rounds + 1):
+            print(f"\n--- Round {round_num} ---")
+            _, player_score = play_game()
+            player_total_score += player_score
+        
+        print("\n--- Game Over ---")
+        print(f"Your Total Score: {player_total_score}")    
+            
+    elif mode == "2":
+        for round_num in range(1, total_rounds + 1):
+            print(f"\n--- Round {round_num} ---")
+        
+            print("\n[YOUR TURN]")
+            random_letters, player_score = play_game()
+            player_total_score += player_score
+            
+            print("\n[COMPUTER'S TURN]")
+            with open("words.txt", 'r') as file:
+                valid_words = set(word.strip().lower() for word in file if word.strip())
+            computer_word = computer_player(valid_words, random_letters)
+            print(f"Computer's letters: {' '.join(random_letters)}")
+            
+            if computer_word:
+                computer_score = len(computer_word)
+                print(f"Computer guessed: {computer_word} ({computer_score} points)")
+            else:
+                computer_score = 0
+                print("Computer couldn’t find a valid word.")     
+            computer_total_score += computer_score
+            
+        print("\n--- Game Over ---")
+        print(f"Your Total Score: {player_total_score}")
+        print(f"Computer's Total Score: {computer_total_score}")
+        if player_total_score > computer_total_score:
+            print("You win!")
+        elif player_total_score < computer_total_score:
+            print("Computer wins!")
+        else:
+            print("It's a tie!")
+
+    elif mode == "3":
+        print("\nMultiplayer mode is being implemented by Hung.")
+
+    else:
+        print("Invalid input. Starting solo mode by default.")
+        play_game()
+    
 
 def check_and_store_guess(raw_guess, guessed_words, valid_words, available_letters, min_length=3):
     try:
@@ -144,6 +203,8 @@ def play_game():
         final_score *= 2
     print(f"\nYou found {calculator.word_count()} words!")
     print(f"Your final score: {final_score}")
+    
+    return random_letters, final_score
 
 def wildcard_powerup(letters):
     print("[WILDCARD ACTIVATED!] You can add or remove one letter!")
@@ -204,7 +265,17 @@ class ScoreCalculator:
             self.bonus_time(),
             self.word_count()
         )
+        
+        
+def computer_player(valid_words, available_letters):
+    possible_words = [
+        word for word in valid_words
+        if not (Counter(word) - Counter(available_letters)) and len(word) >= 3
+    ]   
+    if possible_words:
+        return max(possible_words, key=len)
+    return None   
+               
 
 if __name__ == "__main__":
     game_introduction()
-    play_game()

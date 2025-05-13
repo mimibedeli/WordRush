@@ -45,3 +45,16 @@ python3 WordRush.py on Mac
 
 
 # Individial group contributtion 
+
+| Method/Function           | Primary Author     | Techniques Demonstrated     |
+|---------------------------|--------------------|-----------------------------|
+| content cell              | content cell        | content cell               |
+| content cell              | content cell        | content cell               |
+| content cell              | content cell        | content cell               |
+| content cell              | content cell        | content cell               |
+| content cell              | content cell        | content cell               |
+| content cell              | content cell        | content cell               |
+
+
+
+# Annotated Bibliography
