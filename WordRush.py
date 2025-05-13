@@ -111,8 +111,8 @@ def play_game():
         print("No power-up this round :( \n")
 
     guessed_words = []
-    start_time = time.time()
     round_time = 60
+    start_time = time.time()
 
     while True:
         elapsed_time = time.time() - start_time
