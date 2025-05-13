@@ -114,10 +114,11 @@ def play_game():
     start_time = time.time()
 
     while True:
-        if time.time() - start_time >= round_time:
+        elapsed_time = time.time() - start_time
+        remaining_time = int(round_time - elapsed_time)
+        if elapsed_time > round_time:
             print("\nTime's up! The round has ended.")
             break
-
         guess = input("\nEnter a word: ").strip().lower()
         if guess == 'quit':
             break
