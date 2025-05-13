@@ -210,8 +210,10 @@ def play_game():
     time_up = False
     timer_thread = threading.Thread(target=countdown)
     timer_thread.start()
-
-    while True:
+    
+    start_time = time.time
+    
+    while not time_up:
         elapsed_time = time.time() - start_time
         remaining_time = int(round_time - elapsed_time)
         
@@ -233,6 +235,7 @@ def play_game():
         )
 
         print(result["message"])
+    print("\n Round Over!")
 
     calculator = ScoreCalculator(list(guessed_words), len(random_letters))
     final_score = calculator.calculate_score()
