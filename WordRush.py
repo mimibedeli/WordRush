@@ -1,5 +1,6 @@
 import random
 import time
+import threading
 from collections import Counter
 
 def game_introduction():
