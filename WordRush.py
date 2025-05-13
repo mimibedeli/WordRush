@@ -145,6 +145,8 @@ def play_game():
         None
 
     """
+    global my_timer, time_up
+    
     with open("words.txt", 'r') as file:
         valid_words = set(word.strip().lower() for word in file if word.strip())
 
@@ -203,7 +205,11 @@ def play_game():
         print("No power-up this round :( \n")
 
     guessed_words = []
-    start_time = time.time()
+    
+    my_timer = round_time
+    time_up = False
+    timer_thread = threading.Thread(target=countdown)
+    timer_thread.start()
 
     while True:
         elapsed_time = time.time() - start_time
