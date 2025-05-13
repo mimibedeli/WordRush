@@ -40,3 +40,8 @@ words.txt: (Required) Text file with valid words, used to check user guesses.
 python WordRush.py
 or
 python3 WordRush.py on Mac
+
+
+
+
+# Individial group contributtion 
