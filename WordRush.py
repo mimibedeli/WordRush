@@ -3,6 +3,10 @@ import time
 import threading
 from collections import Counter
 
+round_time = 60
+my_timer = round_time
+time_up = False
+
 def game_introduction():
     print("\nWelcome to WordRush!")
     print("Form as many real words as you can using the given 8 letters.")
