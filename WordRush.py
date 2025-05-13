@@ -283,7 +283,17 @@ def double_points_powerup():
 
 class ScoreCalculator:
     """
-    Calculates score, bonus time, and word count.
+    Calculates score, bonus time, and word count for a set of valid words.
+    
+    Attributes:
+        valid_words (list of str): List of valid words made by player.
+        total_letters (int): total number of letters presented to create words.
+        
+    Methods:
+        calculate_score():
+        word_count():
+        bonus_time():
+        get_results():
     """
     def __init__(self, valid_words, total_letters):
         self.valid_words = valid_words
