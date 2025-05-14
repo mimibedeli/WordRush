@@ -192,15 +192,9 @@ def play_game():
         print("No power-up this round :( \n")
 
     guessed_words = []
-    
-    my_timer = round_time
-    time_up = False
-    timer_thread = threading.Thread(target=countdown)
-    timer_thread.start()
-    
     start_time = time.time()
     
-    while not time_up:
+    while True:
         elapsed_time = time.time() - start_time
         remaining_time = int(round_time - elapsed_time)
         
@@ -209,8 +203,8 @@ def play_game():
             break
         
         print(f"\n Time left: {remaining_time} seconds.")
-        
         guess = input("\nEnter a word: ").strip().lower()
+        
         if guess == 'quit':
             break
 
