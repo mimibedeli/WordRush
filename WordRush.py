@@ -102,43 +102,36 @@ def check_and_store_guess(raw_guess, guessed_words, valid_words, available_lette
     """
     
     try:
-        guess = raw_guess.strip().lower()
+        guess=raw_guess.strip().lower()
 
-        if len(guess) < min_length:
+        if len(guess)<min_length:
             return {
-                "valid": False,
-                "message": f"The word must be at least {min_length} letters."
+                "valid": False, "message": f"The word must be at least {min_length} letters."
             }
 
         if guess in guessed_words:
             return {
-                "valid": False,
-                "message": "The word has already been used."
+                "valid": False, "message": "The word has already been used."
             }
 
         if guess not in valid_words:
             return {
-                "valid": False,
-                "message": "The word isn't in the list."
+                "valid": False, "message": "The word isn't in the list."
             }
 
         if Counter(guess) - Counter(available_letters):
             return {
-                "valid": False,
-                "message": "The word uses invalid letters."
+                "valid": False, "message": "The word uses invalid letters."
             }
 
         guessed_words.append(guess)
         return {
-            "valid": True,
-            "message": "Great guess!",
-            "used_count": len(guessed_words)
+            "valid": True, "message": "Great guess!", "used_count": len(guessed_words)
         }
 
     except Exception as e:
         return {
-            "valid": False, 
-            "message": f"An unexpected error occurred: {str(e)}"
+            "valid": False, "message": f"An unexpected error occurred: {str(e)}"
         }
 
 def play_game():
@@ -448,7 +441,6 @@ def multiplayer_mode():
     for i in range(1, num_players + 1):
         name = input(f"Enter name for Player {i}: ").strip()
         player_names.append(name)
-    
     total_rounds = 3
     scores = {name: 0 for name in player_names}
 
@@ -465,7 +457,6 @@ def multiplayer_mode():
             print(f"\nYour letters: {' '.join(random_letters)}")
             round_score = multiplayer_turn(player, valid_words, random_letters)
             scores[player] += round_score
-            
     print("\n--- Game Over ---")
     for player in player_names:
         print(f"{player}'s Total Score: {scores[player]}")
@@ -477,7 +468,6 @@ def multiplayer_mode():
     else:
         print("\nIt's a tie between: " + ", ".join(winners))
     print()
-  
     
 def multiplayer_turn(player_name, valid_words, random_letters):
     """
