@@ -83,8 +83,22 @@ def check_and_store_guess(raw_guess, guessed_words, valid_words, available_lette
     Primary Author: Hung Lai
     Technique Claimed: optional parameters
 
-    Validates a user's guess based on multiple rules.
-    Prevents duplicates and ensures words use valid letters.
+   Validates a user's guess based on length, duplication, dictionary presence, 
+   and allowed letters.
+
+    Args:
+        raw_guess (str): The player's guess.
+        guessed_words (list): A list of words already guessed.
+        valid_words (set): Set of valid words from the dictionary.
+        available_letters (list): The letters available for forming words.
+        min_length (int, optional): Minimum required length of the guess.
+
+    Returns:
+        dict: A dictionary with keys 'valid' (bool), 'message' (str), and 
+        optionally 'used_count' (int).
+
+    Side Effects:
+        Appends a valid guess to guessed_words.
     """
     
     try:
@@ -131,9 +145,18 @@ def play_game():
     """
     Primary Author: Germid Molina
     Technique Claimed: with statement
+    
+    Runs one round of the solo or versus-computer game. 
+    Applies power-ups, validates guesses, tracks time, and calculates 
+    the final score.
 
-    Controls the game loop for a single round.
-    Applies power-ups, tracks time, checks word guesses, and calculates score.
+    Returns:
+        tuple: A tuple containing the list of random letters used and the 
+        player's final score (int).
+
+    Side Effects:
+        Reads from 'words.txt', prints prompts and messages, interacts with user 
+        input.
     """
     
     with open("words.txt", 'r') as file:
@@ -236,7 +259,15 @@ def wildcard_powerup(letters):
     Technique Claimed: conditional expressions
 
     Lets the player add or remove a letter from their current set.
-    Used as a power-up option during gameplay.   
+
+    Args:
+        letters (list): The current list of available letters.
+
+    Returns:
+        list: Updated list of letters after the wildcard power-up.
+
+    Side Effects:
+        Modifies and prints the letter list based on user input.
     """
     print("[WILDCARD ACTIVATED!] You can add or remove one letter!")
     
@@ -266,7 +297,6 @@ def wildcard_powerup(letters):
 def extra_time_powerup():
     """
     Primary Author: Michelle Melendez
-    Technique Claimed: (none)
 
     Adds 10 seconds to the round when activated.
     """
@@ -276,7 +306,6 @@ def extra_time_powerup():
 def double_points_powerup():
     """    
     Primary Author: Michelle Melendez
-    Technique Claimed: (none)
 
     Doubles the score for the round when activated.
     """
@@ -288,21 +317,17 @@ class ScoreCalculator:
     Calculates score, bonus time, and word count for a set of valid words.
     
     Primary Author: Dulcinea Metro
-    
-    Techniques Claimed: original algorithm
     """
     def __init__(self, valid_words, total_letters):
         """
         Initializes ScoreCalculator with list of valid words and
         total number of letters in game.
-        
+
         Parameters:
             valid_words (list of str): The list of valid words submitted.
             total_letters (int): The total number of letters in the puzzle.
 
         Primary Author: Dulcinea Metro
-        
-        Techniques: parameters
         """
         self.valid_words = valid_words
         self.total_letters = total_letters
@@ -317,8 +342,8 @@ class ScoreCalculator:
             int: The total score.
 
         Primary Author: Dulcinea Metro
-         
-        Techniques Claimed: looping through a list, using len()
+
+        Techniques Claimed: original algorithm
         """
         score = 0
         for word in self.valid_words:
@@ -336,8 +361,6 @@ class ScoreCalculator:
             int: The number of valid words.
 
         Primary Author: Dulcinea Metro
-        
-        Techniques Claimed: basic list operations
         """
         
         return len(self.valid_words)
@@ -350,10 +373,9 @@ class ScoreCalculator:
         Returns:
             int: The number of bonus seconds earned.
 
-        Primary Author: Dulcinea Metro 
-         
-        Techniques Claimed: Container Data Types 2 (list comprehension
-        and generator expression)
+        Primary Author: Dulcinea Metro
+
+        Techniques Claimed: generator expression
         """
         total_characters = sum(len(word) for word in self.valid_words)
         return total_characters // 5
@@ -366,8 +388,7 @@ class ScoreCalculator:
         Returns:
             tuple: (score, bonus_time, word_count)
 
-        Primary Author: Dulcinea Metro  
-        Techniques Claimed: Inheritance and Composition
+        Primary Author: Dulcinea Metro
         """
         return (
             self.calculate_score(),
@@ -381,8 +402,14 @@ def computer_player(valid_words, available_letters):
     Primary Author: Michelle Melendez
     Technique Claimed: use of a key function with max()
 
-    The computer selects the longest valid word it can form using the given letters.
-    It returns the word with the highest length using a max() key function.
+    Chooses the longest valid word the computer can make with the given letters.
+
+    Args:
+        valid_words (set): Set of valid dictionary words.
+        available_letters (list): Letters the computer is allowed to use.
+
+    Returns:
+        str or None: The best word found or None if no valid word exists.
     """
     possible_words = [
         word for word in valid_words
@@ -398,8 +425,12 @@ def multiplayer_mode():
     Primary Author: Hung Lai
     Technique Claimed: sequence unpacking
 
-    Runs the full multiplayer game logic, including name input and round scoring.
-    Handles 2-4 players during the 3 rounds.
+    Runs the full multiplayer game logic across 3 rounds.
+    Collects player names, handles turns, tracks scores, and declares a winner.
+
+    Side Effects:
+        Prompts user input for number of players and names,
+        prints round results and final scores.
     """
     print("\nMultiplayer Mode: Enter number of players (2–4)")
     while True:
@@ -455,6 +486,17 @@ def multiplayer_turn(player_name, valid_words, random_letters):
 
     Handles one player's full turn during a multiplayer round.
     Applies random power-ups and scores valid guesses.
+    
+    Args:
+        player_name (str): The name of the player taking the turn.
+        valid_words (set): Set of valid dictionary words.
+        random_letters (list): Letters available for that round.
+
+    Returns:
+        int: Score for that player's round.
+
+    Side Effects:
+        Interacts with player via input/output, prints score summary.
     """
     power_ups = ["wildcard", "double_points", "extra_time"]
     powerup_names = {

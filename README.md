@@ -52,19 +52,23 @@ or
 
 
 
-# Individial Group Contributtion 
+# Individual Group Contribution
 
-| Method/Function           | Primary Author     | Techniques Demonstrated     |
-|---------------------------|--------------------|-----------------------------|
-| Play_game                 | Germid Molina       | File input/output            |
-| content cell              | content cell        | content cell               |
-| content cell              | content cell        | content cell               |
-| content cell              | content cell        | content cell               |
-| content cell              | content cell        | content cell               |
-| content cell              | content cell        | content cell               |
-| content cell              | content cell        | content cell               |
-| content cell              | content cell        | content cell               |
-
+| Method/Function           | Primary Author     | Techniques Demonstrated                         |
+|---------------------------|--------------------|-------------------------------------------------|
+| game_introduction         | Michelle Melendez  | f-strings containing expressions                |
+| wildcard_powerup          | Michelle Melendez  | conditional expressions                         |
+| computer_player           | Michelle Melendez  | key function with `max()`                       |
+| extra_time_powerup        | Michelle Melendez  | (none claimed)                                  |
+| double_points_powerup     | Michelle Melendez  | (none claimed)                                  |
+| check_and_store_guess     | Hung Lai           | optional parameters                             |
+| multiplayer_mode          | Hung Lai           | sequence unpacking                              |
+| play_game                 | Germid Molina      | with statement                                  |
+| multiplayer_turn          | Germid Molina      | set operations                                  |
+| calculate_score           | Dulcinea Metro     | looping through a list, using `len()`           |
+| word_count                | Dulcinea Metro     | basic list operations                           |
+| bonus_time                | Dulcinea Metro     | generator expression                            |
+| get_results               | Dulcinea Metro     | composition / inheritance                       |
 
 
 
