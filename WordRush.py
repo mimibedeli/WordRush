@@ -468,7 +468,7 @@ def multiplayer_mode():
     else:
         print("\nIt's a tie between: " + ", ".join(winners))
     print()
-   def multiplayer_turn(player_name, valid_words, random_letters):
+def multiplayer_turn(player_name, valid_words, random_letters):
     """
     Primary Author: Germid Molina
     Technique Claimed: set operations
