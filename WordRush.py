@@ -1,11 +1,7 @@
 import random
 import time
-import threading
 from collections import Counter
 
-round_time = 60
-my_timer = round_time
-time_up = False
 
 def game_introduction():
     print("\nWelcome to WordRush!")
@@ -116,14 +112,6 @@ def check_and_store_guess(raw_guess, guessed_words, valid_words, available_lette
             "message": f"An unexpected error occurred: {str(e)}"
         }
 
-def countdown():
-    global my_timer, time_up
-    while my_timer > 0:
-        time.sleep(1)
-        my_timer -= 1
-    time_up = True
-    print("\nYour time is up. The round has ended!")
-    
 def play_game():
     """
     Starts an interactive word game session using randomly selected letters.
@@ -145,7 +133,6 @@ def play_game():
         None
 
     """
-    global my_timer, time_up
     
     with open("words.txt", 'r') as file:
         valid_words = set(word.strip().lower() for word in file if word.strip())
