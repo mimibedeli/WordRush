@@ -468,8 +468,83 @@ def multiplayer_mode():
     else:
         print("\nIt's a tie between: " + ", ".join(winners))
     print()
-    
+   def multiplayer_turn(player_name, valid_words, random_letters):
+    """
+    Primary Author: Germid Molina
+    Technique Claimed: set operations
 
+    Handles one player's full turn during a multiplayer round.
+    Applies random power-ups and scores valid guesses.
+    
+    Args:
+        player_name (str): The name of the player taking the turn.
+        valid_words (set): Set of valid dictionary words.
+        random_letters (list): Letters available for that round.
+
+    Returns:
+        int: Score for that player's round.
+
+    Side Effects:
+        Interacts with player via input/output, prints score summary.
+    """
+    power_ups = ["wildcard", "double_points", "extra_time"]
+    powerup_names = {
+        "wildcard": "Wildcard",
+        "extra_time": "Extra Time",
+        "double_points": "Double Points"
+    }
+
+    double_points = False
+    round_time = 60
+    if random.choice([True, False]):
+        selected_powerup = random.choice(power_ups)
+        print(f"You've been given: {powerup_names[selected_powerup]}!\n")
+
+        if selected_powerup == "wildcard":
+            use_powerup = input("Do you want to use the Wildcard Power-Up? (yes/no): ").strip().lower()
+            if use_powerup == "yes":
+                random_letters = wildcard_powerup(random_letters)
+
+        elif selected_powerup == "extra_time":
+            use_powerup = input("Do you want to use the Extra Time Power-Up? (yes/no): ").strip().lower()
+            if use_powerup == "yes":
+                round_time = extra_time_powerup()
+
+        elif selected_powerup == "double_points":
+            use_powerup = input("Do you want to use the Double Points Power-Up? (yes/no): ").strip().lower()
+            if use_powerup == "yes":
+                double_points = double_points_powerup()
+    else:
+        print("No power-up this round :( \n")
+
+    guessed_words = []
+    start_time = time.time()
+
+    while True:
+        elapsed_time = time.time() - start_time
+        remaining_time = int(round_time - elapsed_time)
+
+        if remaining_time <= 0:
+            print(f"\nTime's up! {player_name}'s round has ended.")
+            break
+
+        print(f"\n Time left: {remaining_time} seconds.")
+        guess = input("\nEnter a word: ").strip().lower()
+        if guess == 'quit':
+            break
+
+        result = check_and_store_guess(guess, guessed_words, valid_words, random_letters)
+        print(result["message"])
+
+    score = ScoreCalculator(guessed_words, len(random_letters)).calculate_score()
+    if double_points:
+        score *= 2
+
+    print(f"\n{player_name} found {len(guessed_words)} words!")
+    print(f"{player_name} score this round: {score}")
+    print(f"Words you found: {', '.join(guessed_words) if guessed_words else 'None'}")
+    return score
+       
          
 
 if __name__ == "__main__":
