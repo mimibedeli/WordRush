@@ -56,7 +56,7 @@ or
 
 | Method/Function           | Primary Author     | Techniques Demonstrated     |
 |---------------------------|--------------------|-----------------------------|
-| Play_game                 | Germid Molina       |             |
+| Play_game                 | Germid Molina       | File input/output            |
 | content cell              | content cell        | content cell               |
 | content cell              | content cell        | content cell               |
 | content cell              | content cell        | content cell               |
