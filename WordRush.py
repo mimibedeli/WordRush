@@ -266,21 +266,40 @@ class ScoreCalculator:
     """
     Calculates score, bonus time, and word count for a set of valid words.
     
-    Attributes:
-        valid_words (list of str): List of valid words made by player.
-        total_letters (int): total number of letters presented to create words.
-        
-    Methods:
-        calculate_score():
-        word_count():
-        bonus_time():
-        get_results():
+    Primary Author: Dulcinea Metro
+    
+    Techniques Claimed: Object-oriented Programming (creating a class
+        and instance variables)
     """
     def __init__(self, valid_words, total_letters):
+        """
+        Initializes ScoreCalculator with list of valid words and
+        total number of letters in game.
+        
+        Parameters:
+            valid_words (list of str): The list of valid words submitted.
+            total_letters (int): The total number of letters in the puzzle.
+
+        Primary Author: Dulcinea Metro
+        
+        Techniques: parameters
+        """
         self.valid_words = valid_words
         self.total_letters = total_letters
 
     def calculate_score(self):
+        """
+        Calculates the total score based on word lengths. 
+        Words with at least 3 letters earn points equal to their length.
+        A word that uses all the letters gets 10 bonus points.
+
+        Returns:
+            int: The total score.
+
+        Primary Author: Dulcinea Metro
+         
+        Techniques Claimed: looping through a list, using len()
+        """
         score = 0
         for word in self.valid_words:
             if len(word) >= 3:
@@ -290,13 +309,46 @@ class ScoreCalculator:
         return score
 
     def word_count(self):
+        """
+        Counts the number of valid words submitted.
+
+        Returns:
+            int: The number of valid words.
+
+        Primary Author: Dulcinea Metro
+        
+        Techniques Claimed: basic list operations
+        """
+        
         return len(self.valid_words)
 
     def bonus_time(self):
+        """
+        Calculates bonus time based on the total number of characters
+        across all valid words. One bonus second is given for every 5 characters.
+
+        Returns:
+            int: The number of bonus seconds earned.
+
+        Primary Author: Dulcinea Metro 
+         
+        Techniques Claimed: Container Data Types 2 (list comprehension
+        and generator expression)
+        """
         total_characters = sum(len(word) for word in self.valid_words)
         return total_characters // 5
 
     def get_results(self):
+        """
+        Returns a tuple of (score, bonus time, word count) by calling 
+        the appropriate methods.
+
+        Returns:
+            tuple: (score, bonus_time, word_count)
+
+        Primary Author: Dulcinea Metro  
+        Techniques Claimed: Inheritance and Composition
+        """
         return (
             self.calculate_score(),
             self.bonus_time(),
