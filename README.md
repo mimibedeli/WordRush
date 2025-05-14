@@ -71,4 +71,5 @@ or
 # Annotated Bibliography
  
 Oxford University Press. (n.d.). The Oxford 3000. Oxford Learner’s Dictionaries. Retrieved from https://www.oxfordlearnersdictionaries.com/external/pdf/wordlists/oxford-3000-5000/The_Oxford_3000.pdf 
+
 I was able to use this pdf fopr the word bank. It has almost every english word in it which makes the word bank for accurate. 
