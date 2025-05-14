@@ -4,6 +4,13 @@ from collections import Counter
 
 
 def game_introduction():
+    """
+    Primary Author: Michelle Melendez
+    Technique Claimed: f-strings containing expressions
+
+    Prints the game introduction and prompts the user to choose a mode.
+    Handles initial input and sets up single or multiplayer rounds.
+    """
     print("\nWelcome to WordRush!")
     print("Form as many real words as you can using the given 8 letters.")
 
@@ -72,6 +79,14 @@ def game_introduction():
     
 
 def check_and_store_guess(raw_guess, guessed_words, valid_words, available_letters, min_length=3):
+    """
+    Primary Author: Hung Lai
+    Technique Claimed: optional parameters
+
+    Validates a user's guess based on multiple rules.
+    Prevents duplicates and ensures words use valid letters.
+    """
+    
     try:
         guess = raw_guess.strip().lower()
 
@@ -114,24 +129,11 @@ def check_and_store_guess(raw_guess, guessed_words, valid_words, available_lette
 
 def play_game():
     """
-    Starts an interactive word game session using randomly selected letters.
+    Primary Author: Germid Molina
+    Technique Claimed: with statement
 
-    Args:
-        None
-
-    Side Effects:
-        - Reads from 'words.txt' to load valid words.
-        - Prints output to the console.
-        - Prompts user for input via the console.
-        - Tracks elapsed time to enforce a timed round.
-        - Calls other functions to apply optional power-ups.
-        - Displays the final score and word count at the end of the game.
-          Arguments:
-        None
-
-    Returns:
-        None
-
+    Controls the game loop for a single round.
+    Applies power-ups, tracks time, checks word guesses, and calculates score.
     """
     
     with open("words.txt", 'r') as file:
@@ -229,6 +231,13 @@ def play_game():
     return random_letters, final_score
 
 def wildcard_powerup(letters):
+    """
+    Primary Author: Michelle Melendez
+    Technique Claimed: conditional expressions
+
+    Lets the player add or remove a letter from their current set.
+    Used as a power-up option during gameplay.   
+    """
     print("[WILDCARD ACTIVATED!] You can add or remove one letter!")
     
     while True:
@@ -255,10 +264,22 @@ def wildcard_powerup(letters):
     return letters
 
 def extra_time_powerup():
+    """
+    Primary Author: Michelle Melendez
+    Technique Claimed: (none)
+
+    Adds 10 seconds to the round when activated.
+    """
     print("[EXTRA TIME ACTIVATED!] 10 extra seconds will be added to your round!")
     return 70
 
 def double_points_powerup():
+    """    
+    Primary Author: Michelle Melendez
+    Technique Claimed: (none)
+
+    Doubles the score for the round when activated.
+    """
     print("[DOUBLE POINTS ACTIVATED!] Every valid word you make this round will earn double points!")
     return True
 
@@ -268,8 +289,7 @@ class ScoreCalculator:
     
     Primary Author: Dulcinea Metro
     
-    Techniques Claimed: Object-oriented Programming (creating a class
-        and instance variables)
+    Techniques Claimed: original algorithm
     """
     def __init__(self, valid_words, total_letters):
         """
@@ -357,6 +377,13 @@ class ScoreCalculator:
         
         
 def computer_player(valid_words, available_letters):
+    """    
+    Primary Author: Michelle Melendez
+    Technique Claimed: use of a key function with max()
+
+    The computer selects the longest valid word it can form using the given letters.
+    It returns the word with the highest length using a max() key function.
+    """
     possible_words = [
         word for word in valid_words
         if not (Counter(word) - Counter(available_letters)) and len(word) >= 3
@@ -367,6 +394,13 @@ def computer_player(valid_words, available_letters):
 
 
 def multiplayer_mode():
+    """
+    Primary Author: Hung Lai
+    Technique Claimed: sequence unpacking
+
+    Runs the full multiplayer game logic, including name input and round scoring.
+    Handles 2-4 players during the 3 rounds.
+    """
     print("\nMultiplayer Mode: Enter number of players (2–4)")
     while True:
         try:
@@ -415,6 +449,13 @@ def multiplayer_mode():
   
     
 def multiplayer_turn(player_name, valid_words, random_letters):
+    """
+    Primary Author: Germid Molina
+    Technique Claimed: set operations
+
+    Handles one player's full turn during a multiplayer round.
+    Applies random power-ups and scores valid guesses.
+    """
     power_ups = ["wildcard", "double_points", "extra_time"]
     powerup_names = {
         "wildcard": "Wildcard",
