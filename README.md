@@ -56,7 +56,7 @@ or
 
 | Method/Function           | Primary Author     | Techniques Demonstrated     |
 |---------------------------|--------------------|-----------------------------|
-| content cell              | content cell        | content cell               |
+| Play_game                 | Germid Molina       |             |
 | content cell              | content cell        | content cell               |
 | content cell              | content cell        | content cell               |
 | content cell              | content cell        | content cell               |
@@ -70,4 +70,5 @@ or
 
 # Annotated Bibliography
  
- [insert sources used here]
+Oxford University Press. (n.d.). The Oxford 3000. Oxford Learner’s Dictionaries. Retrieved from https://www.oxfordlearnersdictionaries.com/external/pdf/wordlists/oxford-3000-5000/The_Oxford_3000.pdf 
+I was able to use this pdf fopr the word bank. It has almost every english word in it which makes the word bank for accurate. 
